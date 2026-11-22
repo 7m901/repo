@@ -1,0 +1,36 @@
+Package: com.dcsyhi.airaw
+Version: 1.6.7-zh20
+Section: Tweaks
+Maintainer: Dcsyhi
+Depends: mobilesubstrate, preferenceloader, firmware (>=15.0), ws.hbang.common,com.opa334.ccsupport
+Architecture: iphoneos-arm64e
+Installed-Size: 13577
+Name: 互联布局
+Author: Dcsyhi
+Sponsor: Dcsyhi
+icon: https://huayuarc.github.io/icon/airaw.png
+Description: CarPlay 布局、壁纸和状态栏自定义工具。
+Pre-Depends: rootless-compat(>= 0.9)
+Conflicts: local.airaw.hostbattery
+Replaces: local.airaw.hostbattery
+Filename: ./debs/Airaw_1.6.7-zh20_iphoneos-arm64e.deb
+Size: 10469304
+SHA256: 8d6f0fb664d0d5100e5fb8d5e4109ef3d9a64cb7276e7bc341531bfa0da06268
+
+Package: com.leftyfl1p.carbridge13
+Name: 汽车互联
+Description: Open any app in CarPlay!
+Maintainer: leftyfl1p
+Author: leftyfl1p <carbridge@havoc.app>
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 13.0), preferenceloader, com.opa334.altlist (>= 1.0.10)
+Depiction: https://havoc.app/package/carbridge
+Tag: cydia::commercial
+Conflicts: com.leftyfl1p.carplay, com.eason.carplay, com.eason.carplay.ios11, com.cortex.carplayenable
+Architecture: iphoneos-arm64e
+Version: 2.0.17-roothide2+zh1
+Installed-Size: 7176
+Filename: ./debs/CarBridge_2.0.17-roothide2_zh1_iphoneos-arm64e.deb
+Size: 426116
+SHA256: 762e5922c0428602376423b02828dbf4a36e711bb16217c6d83bbf77d7bb4554
+

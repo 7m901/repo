@@ -1,0 +1,9 @@
+Origin: 7m901
+Label: 7m备份源
+Suite: stable
+Codename: stable
+Architectures: iphoneos-arm64e
+Date: Sun, 22 Nov 2026 08:00:28 GMT
+SHA256:
+ b234282d35b9887c16d6a51471f3e6243700623c8464acd05135b065e8b33c2d 1335 Packages
+ 31ab77b0e8ccd96cbc24110d000fed8e1bc0c47cbada47aa2d3aebc5dc3e7102 847 Packages.bz2
