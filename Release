@@ -2,6 +2,7 @@ Origin: 7m901
 Label: 7m备份源
 Suite: stable
 Codename: stable
+Components: main
 Architectures: iphoneos-arm64e
 Date: Sun, 22 Nov 2026 08:00:28 GMT
 SHA256:
