@@ -1,0 +1,52 @@
+name: Publish Sileo repository
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Build package indexes
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y apt-utils dpkg-dev
+          mkdir _site
+          git archive HEAD | tar -x -C _site
+          cd _site
+          rm -rf .github
+          dpkg-scanpackages --multiversion debs /dev/null > Packages
+          bzip2 -kf Packages
+          mkdir -p "$RUNNER_TEMP/indexes"
+          cp Packages Packages.bz2 "$RUNNER_TEMP/indexes/"
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, subprocess
+          fields = {}
+          for line in Path('Release').read_text().splitlines():
+              key, _, value = line.partition(':')
+              if key in {'Origin', 'Label', 'Suite', 'Codename', 'Components', 'Description'}:
+                  fields[key] = value.strip()
+          arches = {s.split(':', 1)[1].strip() for s in Path('Packages').read_text().splitlines() if s.startswith('Architecture:')}
+          fields['Architectures'] = ' '.join(sorted(arches)) or 'iphoneos-arm64e'
+          fields.setdefault('Components', 'main')
+          options = [arg for key, value in fields.items() for arg in ('-o', f'APT::FTPArchive::Release::{key}={value}')]
+          data = subprocess.check_output(['apt-ftparchive', *options, 'release', '.'], cwd=Path(os.environ['RUNNER_TEMP'])/'indexes')
+          Path('Release').write_bytes(data)
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - uses: actions/deploy-pages@v4
